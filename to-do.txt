@@ -1,0 +1,7 @@
+
+// Move containers files to folders with specified data for single container
+// Update static.config.js paths to containers
+
+// Read about react-static hooks / methods
+
+// Learn pagination

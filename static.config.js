@@ -1,7 +1,9 @@
-const fs = require('fs')
-const klaw = require('klaw')
-const path = require('path')
-const matter = require('gray-matter')
+const fs = require('fs');
+const klaw = require('klaw');
+const path = require('path');
+const matter = require('gray-matter');
+import React from 'react';
+import { ServerStyleSheet } from 'styled-components';
 
 function getPosts () {
   const items = []
@@ -77,4 +79,28 @@ export default {
       },
     ]
   },
+  renderToHtml: ( render, Comp, meta ) => {
+    const sheet = new ServerStyleSheet();
+    const html = render(sheet.collectStyles(<Comp />));
+    meta.styleTags = sheet.getStyleElement();
+    return html;
+  },
+  Document: class CustomHtml extends React.Component {
+    render () {
+      const { Html, Head, Body, children, renderMeta } = this.props;
+
+      return (
+        <Html>
+          <Head>
+            <meta charSet="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            {renderMeta.styleTags}
+          </Head>
+            <Body>
+              {children}
+            </Body>
+        </Html>
+      )
+    }
+  }
 }
