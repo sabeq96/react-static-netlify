@@ -10,8 +10,8 @@ function getPosts () {
   // Walk ("klaw") through posts directory and push file paths into items array //
   const getFiles = () => new Promise(resolve => {
     // Check if posts directory exists //
-    if (fs.existsSync('./src/posts')) {
-      klaw('./src/posts')
+    if (fs.existsSync('./src/static/posts')) {
+      klaw('./src/static/posts')
         .on('data', item => {
           // Filter function to retrieve .md files //
           if (path.extname(item.path) === '.md') {
@@ -53,21 +53,21 @@ export default {
     return [
       {
         path: '/',
-        component: 'src/containers/Home',
+        component: 'src/containers/Home/Home',
       },
       {
         path: '/about',
-        component: 'src/containers/About',
+        component: 'src/containers/About/About',
       },
       {
         path: '/blog',
-        component: 'src/containers/Blog',
+        component: 'src/containers/Blog/Blog',
         getData: () => ({
           posts,
         }),
         children: posts.map(post => ({
           path: `/post/${post.data.slug}`,
-          component: 'src/containers/Post',
+          component: 'src/containers/Post/Post',
           getData: () => ({
             post,
           }),
@@ -75,7 +75,7 @@ export default {
       },
       {
         is404: true,
-        component: 'src/containers/404',
+        component: 'src/containers/ErrorPage/ErrorPage',
       },
     ]
   },
