@@ -23,6 +23,8 @@ function getPosts () {
             dataObj.data.slug = dataObj.data.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
             // Remove unused key //
             delete dataObj.orig
+            // Parse image file name from path // change uploads path !!
+            // dataObj.data.thumbnail = dataObj.data.thumbnail.replace('/public/uploads/', '')
             // Push object into items array //
             items.push(dataObj)
           }
